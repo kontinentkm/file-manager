@@ -1,23 +1,3 @@
-import readline from "readline";
-import { handleCommand } from "./commands/nwd.js";
-import { handleFileOperations } from "./commands/fileOperations.js";
-import { handleOSInfo } from "./commands/osInfo.js";
-import { calculateHash } from "./commands/hash.js";
-import { handleCompression } from "./commands/compress.js";
-import { printMessage, printCurrentDirectory } from "./utils/printer.js";
-
-const username =
-  process.argv.find((arg) => arg.startsWith("--username="))?.split("=")[1] ||
-  "User";
-
-printMessage(`Welcome to the File Manager, ${username}!`);
-printCurrentDirectory(process.cwd());
-
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
-
 rl.on("line", async (input) => {
   const [command, ...args] = input.trim().split(" ");
 
@@ -53,13 +33,8 @@ rl.on("line", async (input) => {
         printMessage("Invalid input");
     }
   } catch (error) {
-    console.error("Operation failed");
+    handleError(error);
   }
 
   printCurrentDirectory(process.cwd());
-});
-
-rl.on("close", () => {
-  printMessage(`Thank you for using File Manager, ${username}, goodbye!`);
-  process.exit(0);
 });
