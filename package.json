@@ -1,6 +1,9 @@
 {
   "type": "module",
+  "config": {
+    "username": ""
+  },
   "scripts": {
-    "start": "node src/app.js -- --username="
+    "start": "node src/app.js"
   }
 }
